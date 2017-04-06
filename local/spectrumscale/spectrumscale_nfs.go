@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/jinzhu/gorm"
 	"github.com/IBM/ubiquity/resources"
 	"github.com/IBM/ubiquity/utils"
+	"github.com/jinzhu/gorm"
 )
 
 type spectrumNfsLocalClient struct {
@@ -186,6 +186,7 @@ func (s *spectrumNfsLocalClient) exportNfs(name, clientConfig string) error {
 
 	args := []string{spectrumCommand, "export", "add", volumeMountpoint, "--client", fmt.Sprintf("%s", clientConfig)}
 
+	s.spectrumClient.logger.Printf("Export args %#v", args)
 	output, err := s.executor.Execute("sudo", args)
 
 	if err != nil {
