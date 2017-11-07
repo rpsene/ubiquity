@@ -205,6 +205,9 @@ func (s *spectrumLocalClient) CreateVolume(createVolumeRequest resources.CreateV
 	}
 	return fmt.Errorf("Internal error")
 }
+func (s *spectrumLocalClient) VolExist(volumeName string) (SpectrumScaleVolume, bool, error) {
+	return s.dataModel.GetVolume(volumeName)
+}
 
 func (s *spectrumLocalClient) RemoveVolume(removeVolumeRequest resources.RemoveVolumeRequest) (err error) {
 	s.logger.Println("spectrumLocalClient: remove start")
@@ -637,17 +640,17 @@ func (s *spectrumLocalClient) updateDBWithExistingFilesetQuota(filesystem, name,
 			s.logger.Printf("utils.ConvertToBytes failed %v", err)
 			return err
 		}
-		
-		quotasBytes, err := utils.ConvertToBytes(s.logger, quota)                   
-                if err != nil {
-                        s.logger.Printf("utils.ConvertToBytes failed %v", err)
-                        return err
-                }
- 		
+
+		quotasBytes, err := utils.ConvertToBytes(s.logger, quota)
+		if err != nil {
+			s.logger.Printf("utils.ConvertToBytes failed %v", err)
+			return err
+		}
+
 		if filesetQuotaBytes != quotasBytes {
-			s.logger.Printf("Mismatch between user-specified %v and listed quota %v for fileset %s", quotasBytes, filesetQuotaBytes, userSpecifiedFileset)			
+			s.logger.Printf("Mismatch between user-specified %v and listed quota %v for fileset %s", quotasBytes, filesetQuotaBytes, userSpecifiedFileset)
 			return fmt.Errorf("Mismatch between user-specified %v and listed quota %v for fileset %s", quotasBytes, filesetQuotaBytes, userSpecifiedFileset)
-		}		
+		}
 	} else {
 		if filesetQuota != quota {
 			s.logger.Printf("Mismatch between user-specified and listed quota for fileset %s", userSpecifiedFileset)

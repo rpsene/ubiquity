@@ -106,6 +106,17 @@ func (s *spectrumNfsLocalClient) CreateVolume(createVolumeRequest resources.Crea
 	s.spectrumClient.logger.Printf("spectrumNfsLocalClient: Create-start")
 	defer s.spectrumClient.logger.Println("spectrumNfsLocalClient: Create-end")
 
+	_, volExists, err := s.spectrumClient.VolExist(createVolumeRequest.Name)
+
+	if err != nil {
+		s.spectrumClient.logger.Printf("error in VolExist %s \n", err.Error())
+		return err
+	}
+
+	if volExists {
+		return nil
+	}
+
 	nfsClientConfig, ok := createVolumeRequest.Opts["nfsClientConfig"].(string)
 	if !ok {
 		errorMsg := "Cannot create volume (opts missing required parameter 'nfsClientConfig')"
