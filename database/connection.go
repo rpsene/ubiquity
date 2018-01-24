@@ -19,7 +19,6 @@ package database
 import (
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/postgres"
-    _ "github.com/jinzhu/gorm/dialects/sqlite"
     "github.com/IBM/ubiquity/utils/logs"
     "errors"
 )

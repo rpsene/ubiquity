@@ -37,7 +37,7 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
 		volumeWwnDb        string = volumeWwn + database.VolumeNameSuffix
 		volumeFsTypeDb     string = volumeFsType + database.VolumeNameSuffix
 		scbeVolume         scbe.ScbeVolume
-        listVolumes        []scbe.ScbeVolume
+        //listVolumes        []scbe.ScbeVolume
 	)
 
 	BeforeEach(func() {
@@ -77,7 +77,8 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
                 scbeVolume, err = dataModelWrapper.GetVolume(volumeNameDb, false)
                 Expect(err).To(Not(HaveOccurred()))
             })
-            It("fail for non db volume", func() {
+            /*
+			It("fail for non db volume", func() {
                 sqliteDbCloseFunc := database.InitSqlite(sqliteDbPath)
                 err = dataModelWrapper.InsertVolume(volumeName, volumeWwn, volumeFsType)
                 Expect(err).To(Not(HaveOccurred()))
@@ -88,6 +89,7 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
                 err = dataModelWrapper.DeleteVolume(volumeName)
                 Expect(err).To(HaveOccurred())
             })
+            */
         })
         Context("UpdateDatabaseVolume", func() {
             It("succeed", func() {
@@ -106,6 +108,7 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
                 Expect(err).To(Not(HaveOccurred()))
             })
         })
+		/*
         Context("ListVolumes", func() {
             It("empty when there is no db volume", func() {
                 sqliteDbCloseFunc := database.InitSqlite(sqliteDbPath)
@@ -138,7 +141,9 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
                 Expect(isEqualScbeVolumes(listVolumes, scbeVolumes)).To(Equal(true))
             })
         })
+        */
     })
+	/*
 	Context("Database can be accessed", func() {
 		Context("InsertVolume", func() {
 			It("succeed for db volume", func() {
@@ -227,6 +232,7 @@ var _ = Describe("ScbeDataModelWrapper test", func() {
         })
 
 	})
+	*/
 })
 
 

@@ -21,7 +21,6 @@ import (
 	"sync"
 
 	"github.com/IBM/ubiquity/local/scbe"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 type FakeScbeDataModel struct {
