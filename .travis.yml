@@ -1,5 +1,7 @@
 language: go
 
+os: linux-ppc64le
+
 go:
   - 1.9
 
@@ -9,6 +11,3 @@ install:
 
 script:
   - sh scripts/run_units.sh
-
-notifications:
-          slack: ibm-ubiquity:gb1UFkvWWjprPqokiklRRP1p
